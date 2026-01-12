@@ -1,0 +1,23 @@
+<header class="app-header">
+  <div class="container">
+    <h1>📝 ToDoApp</h1>
+    <nav class="nav">
+      <a routerLink="/tasks" routerLinkActive="active">Tareas</a>
+      <a routerLink="/tasks/new" routerLinkActive="active">Nueva Tarea</a>
+      <a routerLink="/categories" routerLinkActive="active">Categorías</a>
+      <a routerLink="/history" routerLinkActive="active">Historial</a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-main">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>&copy; 2026 ToDoApp - Organiza tus tareas eficientemente</p>
+  </div>
+</footer>
