@@ -14,9 +14,12 @@ export interface TaskHistory {
   action: HistoryAction;
   previousStatus?: TaskStatus;
   newStatus?: TaskStatus;
-  changes?: Record<string, any>;
   timestamp: Date;
   description?: string;
+  taskTitle: string;
+  oldStatus?: TaskStatus;
+  newStatusDetail?: TaskStatus;
+  changes?: Record<string, any>;
 }
 
 export interface TaskHistoryFilter {

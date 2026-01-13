@@ -1,0 +1,62 @@
+<div class="task-list-container">
+  <div class="header">
+    <h2>Mis Tareas</h2>
+    <div class="filters">
+      <select (change)="filterByStatus($event)" class="filter-select">
+        <option value="">Todos los estados</option>
+        <option value="pending">Pendientes</option>
+        <option value="in_progress">En Progreso</option>
+        <option value="completed">Completadas</option>
+      </select>
+
+      <select (change)="filterByCategory($event)" class="filter-select">
+        <option value="">Todas las categorías</option>
+        @for (category of categories(); track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="tasks">
+    @if (loading()) {
+      <div class="loading">Cargando tareas...</div>
+    } @else if (filteredTasks().length === 0) {
+      <div class="empty">No hay tareas disponibles</div>
+    } @else {
+      @for (task of filteredTasks(); track task.id) {
+        <div class="task-card" [class.completed]="task.status === 'completed'">
+          <div class="task-header">
+            <h3>{{ task.title }}</h3>
+            <span class="priority" [class]="task.priority">{{ task.priority }}</span>
+          </div>
+
+          @if (task.description) {
+            <p class="description">{{ task.description }}</p>
+          }
+
+          <div class="task-meta">
+            <span class="category">
+              {{ getCategoryName(task.categoryId) }}
+            </span>
+            <span class="status">{{ getStatusLabel(task.status) }}</span>
+          </div>
+
+          <div class="task-actions">
+            @if (task.status !== 'completed') {
+              <button (click)="completeTask(task.id)" class="btn-complete">
+                Completar
+              </button>
+            }
+            <button (click)="editTask(task.id)" class="btn-edit">
+              Editar
+            </button>
+            <button (click)="deleteTask(task.id)" class="btn-delete">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
