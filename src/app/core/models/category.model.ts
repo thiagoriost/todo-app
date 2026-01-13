@@ -29,7 +29,7 @@ export interface Category {
   color: string;
   icon?: string;
   description?: string;
-  createdAt: Date;
+  createdAt: string;
   taskCount?: number;
 }
 

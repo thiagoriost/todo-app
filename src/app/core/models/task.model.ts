@@ -58,9 +58,9 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   categoryId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  completedAt?: Date;
+  createdAt: string;
+  updatedAt: string;
+  completedAt?: string;
   dueDate?: Date;
   tags?: string[];
 }
@@ -84,6 +84,7 @@ export interface CreateTaskDto {
   categoryId: string;
   dueDate?: Date;
   tags?: string[];
+  status?: TaskStatus;
 }
 
 /**

@@ -17,7 +17,9 @@ export enum HistoryAction {
   /** Tarea marcada como completada */
   COMPLETED = 'completed',
   /** Tarea eliminada del sistema */
-  DELETED = 'deleted'
+  DELETED = 'deleted',
+  /** Tarea iniciada */
+  STARTED = 'started'
 }
 
 /**
@@ -59,10 +61,12 @@ export interface TaskHistory {
   newStatus?: TaskStatus;
   timestamp: Date;
   description?: string;
-  taskTitle: string;
+  taskTitle?: string;
   oldStatus?: TaskStatus;
   newStatusDetail?: TaskStatus;
   changes?: Record<string, any>;
+  oldValues?: any;
+  newValues?: any;
 }
 
 /**

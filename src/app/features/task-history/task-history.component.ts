@@ -168,7 +168,8 @@ export class TaskHistoryComponent implements OnInit {
       [HistoryAction.UPDATED]: 'Actualizada',
       [HistoryAction.STATUS_CHANGED]: 'Cambio de Estado',
       [HistoryAction.COMPLETED]: 'Completada',
-      [HistoryAction.DELETED]: 'Eliminada'
+      [HistoryAction.DELETED]: 'Eliminada',
+      [HistoryAction.STARTED]: 'Iniciada'
     };
     return labels[action];
   }

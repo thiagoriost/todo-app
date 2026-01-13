@@ -1,11 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { TaskHistory, TaskHistoryFilter } from '../models';
-import { environment } from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { TaskHistory, TaskHistoryFilter, HistoryAction } from '../models';
 
 /**
- * Servicio para acceder al historial de cambios de tareas.
+ * Servicio para acceder al historial de cambios de tareas con localStorage.
  * Proporciona métodos para consultar el registro de todas las acciones
  * realizadas sobre las tareas del sistema.
  *
@@ -28,14 +26,84 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class TaskHistoryService {
-  /** Cliente HTTP para peticiones al backend */
-  private http = inject(HttpClient);
+  /** Clave para almacenar historial en localStorage */
+  private readonly STORAGE_KEY = 'todoapp_history';
 
-  /** URL base del API de historial */
-  private apiUrl = `${environment.apiUrl}/history`;
+  /** Clave para contador de IDs */
+  private readonly COUNTER_KEY = 'todoapp_history_counter';
 
   /**
-   * Obtiene el historial de cambios con filtros opcionales.
+   * Carga historial desde localStorage
+   * @private
+   */
+  private loadHistory(): TaskHistory[] {
+    const data = localStorage.getItem(this.STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  /**
+   * Guarda historial en localStorage
+   * @private
+   */
+  private saveHistory(history: TaskHistory[]): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(history));
+  }
+
+  /**
+   * Genera un nuevo ID único para entradas de historial
+   * @private
+   */
+  private generateId(): string {
+    const counter = this.getCounter();
+    this.setCounter(counter + 1);
+    return `history-${counter}`;
+  }
+
+  /**
+   * Obtiene el contador actual de IDs
+   * @private
+   */
+  private getCounter(): number {
+    const counter = localStorage.getItem(this.COUNTER_KEY);
+    return counter ? parseInt(counter, 10) : 1;
+  }
+
+  /**
+   * Establece el valor del contador de IDs
+   * @private
+   */
+  private setCounter(value: number): void {
+    localStorage.setItem(this.COUNTER_KEY, value.toString());
+  }
+
+  /**
+   * Agrega una nueva entrada al historial
+   * @internal
+   */
+  addHistoryEntry(taskId: string, action: HistoryAction, oldValues?: any, newValues?: any): void {
+    const history = this.loadHistory();
+
+    const entry: TaskHistory = {
+      id: this.generateId(),
+      taskId,
+      action,
+      timestamp: new Date(),
+      oldValues,
+      newValues
+    };
+
+    history.unshift(entry); // Agregar al inicio
+
+    // Limitar el historial a 1000 entradas
+    if (history.length > 1000) {
+      history.splice(1000);
+    }
+
+    this.saveHistory(history);
+  }
+
+  /**
+   * Obtiene el historial de cambios con filtros opcionales desde localStorage.
    * Permite filtrar por tarea, acción y rango de fechas.
    *
    * @param {TaskHistoryFilter} [filter] - Filtros opcionales para la búsqueda
@@ -59,13 +127,30 @@ export class TaskHistoryService {
    * ```
    */
   getHistory(filter?: TaskHistoryFilter): Observable<TaskHistory[]> {
-    return this.http.get<TaskHistory[]>(this.apiUrl, {
-      params: filter as any
-    });
+    let history = this.loadHistory();
+
+    if (filter) {
+      if (filter.taskId) {
+        history = history.filter(h => h.taskId === filter.taskId);
+      }
+      if (filter.action) {
+        history = history.filter(h => h.action === filter.action);
+      }
+      if (filter.dateFrom) {
+        const fromDate = new Date(filter.dateFrom).getTime();
+        history = history.filter(h => new Date(h.timestamp).getTime() >= fromDate);
+      }
+      if (filter.dateTo) {
+        const toDate = new Date(filter.dateTo).getTime();
+        history = history.filter(h => new Date(h.timestamp).getTime() <= toDate);
+      }
+    }
+
+    return of(history);
   }
 
   /**
-   * Obtiene el historial completo de una tarea específica.
+   * Obtiene el historial completo de una tarea específica desde localStorage.
    * Retorna todos los cambios en orden cronológico.
    *
    * @param {string} taskId - ID de la tarea a consultar
@@ -84,11 +169,13 @@ export class TaskHistoryService {
    * ```
    */
   getTaskHistory(taskId: string): Observable<TaskHistory[]> {
-    return this.http.get<TaskHistory[]>(`${this.apiUrl}/task/${taskId}`);
+    const history = this.loadHistory();
+    const filtered = history.filter(h => h.taskId === taskId);
+    return of(filtered);
   }
 
   /**
-   * Obtiene los cambios más recientes del sistema.
+   * Obtiene los cambios más recientes del sistema desde localStorage.
    * Útil para mostrar actividad reciente o notificaciones.
    *
    * @param {number} [limit=10] - Número máximo de entradas a retornar
@@ -98,18 +185,18 @@ export class TaskHistoryService {
    * ```typescript
    * // Últimos 10 cambios (por defecto)
    * this.historyService.getRecentHistory().subscribe(
-   *   recent => console.log('Actividad reciente:', recent)
+   *   history => console.log('Actividad reciente:', history)
    * );
    *
    * // Últimos 20 cambios
    * this.historyService.getRecentHistory(20).subscribe(
-   *   recent => this.displayRecentActivity(recent)
+   *   history => console.log('Últimos 20:', history)
    * );
    * ```
    */
   getRecentHistory(limit: number = 10): Observable<TaskHistory[]> {
-    return this.http.get<TaskHistory[]>(`${this.apiUrl}/recent`, {
-      params: { limit: limit.toString() }
-    });
+    const history = this.loadHistory();
+    const recent = history.slice(0, limit);
+    return of(recent);
   }
 }
