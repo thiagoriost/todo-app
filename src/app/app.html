@@ -2,10 +2,26 @@
   <div class="container">
     <h1>📝 ToDoApp</h1>
     <nav class="nav" role="navigation" aria-label="Navegación principal">
-      <a routerLink="/tasks" routerLinkActive="active" aria-label="Ver tareas">Tareas</a>
-      <a routerLink="/tasks/new" routerLinkActive="active" aria-label="Crear nueva tarea">Nueva Tarea</a>
-      <a routerLink="/categories" routerLinkActive="active" aria-label="Gestionar categorías">Categorías</a>
-      <a routerLink="/history" routerLinkActive="active" aria-label="Ver historial de cambios">Historial</a>
+      <a (click)="navigateToTasks()"
+         [class.active]="isRouteActive('/tasks')"
+         aria-label="Ver tareas"
+         role="button"
+         tabindex="0">Tareas</a>
+      <a (click)="navigateToNewTask()"
+         [class.active]="isRouteActive('/tasks/new')"
+         aria-label="Crear nueva tarea"
+         role="button"
+         tabindex="0">Nueva Tarea</a>
+      <a (click)="navigateToCategories()"
+         [class.active]="isRouteActive('/categories')"
+         aria-label="Gestionar categorías"
+         role="button"
+         tabindex="0">Categorías</a>
+      <a (click)="navigateToHistory()"
+         [class.active]="isRouteActive('/history')"
+         aria-label="Ver historial de cambios"
+         role="button"
+         tabindex="0">Historial</a>
     </nav>
   </div>
 </header>
