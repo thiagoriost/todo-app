@@ -1,70 +1,166 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f5f5;
-  color: #333;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+/* Estilos del componente principal - Mobile First */
 
 .app-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-color, #667eea) 0%, var(--primary-dark, #764ba2) 100%);
   color: white;
-  padding: 20px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-md, 16px) 0;
+  box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   h1 {
-    font-size: 32px;
-    margin-bottom: 16px;
+    font-size: 1.5rem; /* 24px - mobile */
+    margin-bottom: var(--spacing-sm, 12px);
+    text-align: center;
+    font-weight: 700;
   }
 
   .nav {
     display: flex;
-    gap: 24px;
+    flex-direction: column;
+    gap: var(--spacing-xs, 8px);
 
     a {
       color: white;
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: background 0.3s;
+      padding: var(--spacing-sm, 12px) var(--spacing-md, 16px);
+      border-radius: var(--border-radius, 8px);
+      transition: all 0.3s ease;
       font-weight: 500;
+      text-align: center;
+      font-size: 0.95rem;
 
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
+      &:hover,
+      &:focus {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
       }
 
       &.active {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.25);
         font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  /* Tablet y mayores */
+  @media (min-width: 768px) {
+    padding: var(--spacing-lg, 24px) 0;
+
+    h1 {
+      font-size: 2rem; /* 32px */
+      text-align: left;
+      margin-bottom: var(--spacing-md, 16px);
+    }
+
+    .nav {
+      flex-direction: row;
+      gap: var(--spacing-md, 16px);
+      flex-wrap: wrap;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 2.25rem; /* 36px */
+    }
+
+    .nav {
+      gap: var(--spacing-lg, 24px);
+
+      a {
+        padding: var(--spacing-sm, 12px) var(--spacing-lg, 24px);
       }
     }
   }
 }
 
 .app-main {
-  min-height: calc(100vh - 200px);
-  padding: 32px 0;
+  min-height: calc(100vh - 280px); /* Ajustado para mobile */
+  padding: var(--spacing-md, 16px) 0;
+
+  /* Tablet y mayores */
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 240px);
+    padding: var(--spacing-lg, 24px) 0;
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    min-height: calc(100vh - 200px);
+    padding: var(--spacing-xl, 32px) 0;
+  }
 }
 
 .app-footer {
   background: #333;
   color: white;
-  padding: 20px 0;
+  padding: var(--spacing-md, 16px) 0;
   text-align: center;
-  margin-top: 40px;
+  margin-top: var(--spacing-lg, 24px);
 
   p {
-    font-size: 14px;
-    opacity: 0.8;
+    font-size: 0.875rem; /* 14px */
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  /* Tablet y mayores */
+  @media (min-width: 768px) {
+    padding: var(--spacing-lg, 24px) 0;
+    margin-top: var(--spacing-xl, 32px);
+
+    p {
+      font-size: 0.9375rem; /* 15px */
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    margin-top: 40px;
   }
 }
+
+/* Mejoras de usabilidad mobile */
+@media (max-width: 767px) {
+  /* Evitar selección de texto accidental */
+  .app-header h1 {
+    user-select: none;
+  }
+
+  /* Mejorar área de toque en navegación */
+  .nav a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Animaciones suaves */
+@media (prefers-reduced-motion: no-preference) {
+  .app-header {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .nav a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Modo reducido de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
