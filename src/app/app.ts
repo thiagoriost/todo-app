@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, Router} from '@angular/router';
 
 /**
@@ -13,6 +13,7 @@ import { RouterOutlet, Router} from '@angular/router';
  * - Estructura principal (header, main, footer)
  * - Detección de ruta activa
  * - Diseño responsive mobile-first
+ * - Menú hamburguesa colapsable para móviles
  */
 @Component({
   selector: 'app-root',
@@ -27,9 +28,26 @@ export class App {
   /** Router inyectado para navegación programática */
   private router = inject(Router);
 
+  /** Estado del menú de navegación (abierto/cerrado) */
+  protected menuOpen = signal(false);
+
+  /**
+   * Alterna la visibilidad del menú de navegación.
+   * Usado principalmente en dispositivos móviles con menú hamburguesa.
+   *
+   * @example
+   * ```html
+   * <button (click)="toggleMenu()">☰</button>
+   * ```
+   */
+  toggleMenu(): void {
+    this.menuOpen.update(value => !value);
+  }
+
   /**
    * Navega a la página de listado de tareas.
    * Muestra todas las tareas con opciones de filtrado.
+   * Cierra el menú móvil tras la navegación.
    *
    * @returns {Promise<boolean>} Promesa que indica si la navegación fue exitosa
    *
@@ -39,11 +57,13 @@ export class App {
    * ```
    */
   navigateToTasks(): Promise<boolean> {
+    this.menuOpen.set(false);
     return this.router.navigate(['/tasks']);
   }
 
   /**
    * Navega al formulario de creación de nueva tarea.
+   * Cierra el menú móvil tras la navegación.
    *
    * @returns {Promise<boolean>} Promesa que indica si la navegación fue exitosa
    *
@@ -53,12 +73,14 @@ export class App {
    * ```
    */
   navigateToNewTask(): Promise<boolean> {
+    this.menuOpen.set(false);
     return this.router.navigate(['/tasks/new']);
   }
 
   /**
    * Navega a la página de gestión de categorías.
    * Permite crear, editar y eliminar categorías.
+   * Cierra el menú móvil tras la navegación.
    *
    * @returns {Promise<boolean>} Promesa que indica si la navegación fue exitosa
    *
@@ -68,12 +90,14 @@ export class App {
    * ```
    */
   navigateToCategories(): Promise<boolean> {
+    this.menuOpen.set(false);
     return this.router.navigate(['/categories']);
   }
 
   /**
    * Navega a la página de historial de cambios.
    * Muestra el timeline de todas las acciones realizadas en las tareas.
+   * Cierra el menú móvil tras la navegación.
    *
    * @returns {Promise<boolean>} Promesa que indica si la navegación fue exitosa
    *
@@ -83,6 +107,7 @@ export class App {
    * ```
    */
   navigateToHistory(): Promise<boolean> {
+    this.menuOpen.set(false);
     return this.router.navigate(['/history']);
   }
 

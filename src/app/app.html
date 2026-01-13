@@ -1,27 +1,63 @@
 <header class="app-header" role="banner">
   <div class="container">
-    <h1>📝 ToDoApp</h1>
-    <nav class="nav" role="navigation" aria-label="Navegación principal">
+    <div class="header-content">
+      <h1>📝 ToDoApp</h1>
+      <button
+        class="menu-toggle"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-label="Toggle menu"
+        type="button">
+        <span class="hamburger" [class.open]="menuOpen()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Overlay para cerrar menú al hacer click fuera -->
+    @if (menuOpen()) {
+      <div class="menu-overlay" (click)="toggleMenu()"></div>
+    }
+
+    <nav
+      class="nav"
+      [class.open]="menuOpen()"
+      role="navigation"
+      aria-label="Navegación principal">
       <a (click)="navigateToTasks()"
          [class.active]="isRouteActive('/tasks')"
          aria-label="Ver tareas"
          role="button"
-         tabindex="0">Tareas</a>
+         tabindex="0">
+        <span class="icon">📋</span>
+        <span class="text">Tareas</span>
+      </a>
       <a (click)="navigateToNewTask()"
          [class.active]="isRouteActive('/tasks/new')"
          aria-label="Crear nueva tarea"
          role="button"
-         tabindex="0">Nueva Tarea</a>
+         tabindex="0">
+        <span class="icon">➕</span>
+        <span class="text">Nueva</span>
+      </a>
       <a (click)="navigateToCategories()"
          [class.active]="isRouteActive('/categories')"
          aria-label="Gestionar categorías"
          role="button"
-         tabindex="0">Categorías</a>
+         tabindex="0">
+        <span class="icon">🏷️</span>
+        <span class="text">Categorías</span>
+      </a>
       <a (click)="navigateToHistory()"
          [class.active]="isRouteActive('/history')"
          aria-label="Ver historial de cambios"
          role="button"
-         tabindex="0">Historial</a>
+         tabindex="0">
+        <span class="icon">📜</span>
+        <span class="text">Historial</span>
+      </a>
     </nav>
   </div>
 </header>
