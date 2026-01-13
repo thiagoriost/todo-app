@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskService } from '../../core/services/task.service';
 import { CategoryService } from '../../core/services/category.service';
 import { Task, Category, TaskStatus } from '../../core/models';
+import { UiStateService } from '../../core/services/ui-state.service';
 
 /**
  * Componente para listar y gestionar tareas.
@@ -58,6 +59,9 @@ export class TaskListComponent implements OnInit {
 
   /** Categoría seleccionada para filtrar (privado) */
   private selectedCategory = signal<string>('');
+
+  /** Servicio de estado de UI inyectado */
+  uiState = inject(UiStateService);
 
   /**
    * Hook de ciclo de vida de Angular.
@@ -262,5 +266,14 @@ export class TaskListComponent implements OnInit {
         error: (error) => console.error('Error deleting task:', error)
       });
     }
+  }
+
+  /**
+   * Cierra el menú de navegación si está abierto.
+   *
+   * @returns {void}
+   */
+  cerrarMenu() {
+    this.uiState.closeMenu();
   }
 }

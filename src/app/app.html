@@ -5,10 +5,10 @@
       <button
         class="menu-toggle"
         (click)="toggleMenu()"
-        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-expanded]="uiState.menuOpen()"
         aria-label="Toggle menu"
         type="button">
-        <span class="hamburger" [class.open]="menuOpen()">
+        <span class="hamburger" [class.open]="uiState.menuOpen()">
           <span></span>
           <span></span>
           <span></span>
@@ -17,48 +17,50 @@
     </div>
 
     <!-- Overlay para cerrar menú al hacer click fuera -->
-    @if (menuOpen()) {
+    @if (uiState.menuOpen()) {
       <div class="menu-overlay" (click)="toggleMenu()"></div>
     }
 
-    <nav
-      class="nav"
-      [class.open]="menuOpen()"
-      role="navigation"
-      aria-label="Navegación principal">
-      <a (click)="navigateToTasks()"
-         [class.active]="isRouteActive('/tasks')"
-         aria-label="Ver tareas"
-         role="button"
-         tabindex="0">
-        <span class="icon">📋</span>
-        <span class="text">Tareas</span>
-      </a>
-      <a (click)="navigateToNewTask()"
-         [class.active]="isRouteActive('/tasks/new')"
-         aria-label="Crear nueva tarea"
-         role="button"
-         tabindex="0">
-        <span class="icon">➕</span>
-        <span class="text">Nueva</span>
-      </a>
-      <a (click)="navigateToCategories()"
-         [class.active]="isRouteActive('/categories')"
-         aria-label="Gestionar categorías"
-         role="button"
-         tabindex="0">
-        <span class="icon">🏷️</span>
-        <span class="text">Categorías</span>
-      </a>
-      <a (click)="navigateToHistory()"
-         [class.active]="isRouteActive('/history')"
-         aria-label="Ver historial de cambios"
-         role="button"
-         tabindex="0">
-        <span class="icon">📜</span>
-        <span class="text">Historial</span>
-      </a>
-    </nav>
+    @if (uiState.isMobile() != true || uiState.menuOpen()) {
+      <nav
+        class="nav"
+        [class.open]="uiState.menuOpen()"
+        role="navigation"
+        aria-label="Navegación principal">
+        <a (click)="navigateToTasks()"
+           [class.active]="isRouteActive('/tasks')"
+           aria-label="Ver tareas"
+           role="button"
+           tabindex="0">
+          <span class="icon">📋</span>
+          <span class="text">Tareas</span>
+        </a>
+        <a (click)="navigateToNewTask()"
+           [class.active]="isRouteActive('/tasks/new')"
+           aria-label="Crear nueva tarea"
+           role="button"
+           tabindex="0">
+          <span class="icon">➕</span>
+          <span class="text">Nueva</span>
+        </a>
+        <a (click)="navigateToCategories()"
+           [class.active]="isRouteActive('/categories')"
+           aria-label="Gestionar categorías"
+           role="button"
+           tabindex="0">
+          <span class="icon">🏷️</span>
+          <span class="text">Categorías</span>
+        </a>
+        <a (click)="navigateToHistory()"
+           [class.active]="isRouteActive('/history')"
+           aria-label="Ver historial de cambios"
+           role="button"
+           tabindex="0">
+          <span class="icon">📜</span>
+          <span class="text">Historial</span>
+        </a>
+      </nav>
+    }
   </div>
 </header>
 
@@ -70,6 +72,6 @@
 
 <footer class="app-footer" role="contentinfo">
   <div class="container">
-    <p>&copy; 2026 ToDoApp - Organiza tus tareas eficientemente</p>
+    <p>&copy; 2026 ToDoApp by RigobertoRios 3106777777</p>
   </div>
 </footer>

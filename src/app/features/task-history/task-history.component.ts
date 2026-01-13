@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskHistoryService } from '../../core/services/task-history.service';
 import { TaskHistory, HistoryAction } from '../../core/models';
+import { UiStateService } from '../../core/services/ui-state.service';
 
 /**
  * Componente para visualizar el historial de cambios de tareas.
@@ -50,6 +51,9 @@ export class TaskHistoryComponent implements OnInit {
 
   /** Fecha seleccionada para filtrar (privado) */
   private selectedDate = signal<string>('');
+
+  /** Servicio de estado de UI inyectado */
+    uiState = inject(UiStateService);
 
   /**
    * Hook de ciclo de vida de Angular.
@@ -233,5 +237,14 @@ export class TaskHistoryComponent implements OnInit {
     return Object.entries(changes).map(([key, value]) => {
       return `${key}: ${JSON.stringify(value)}`;
     });
+  }
+
+  /**
+   * Cierra el menú de navegación si está abierto.
+   *
+   * @returns {void}
+   */
+  cerrarMenu() {
+    this.uiState.closeMenu();
   }
 }

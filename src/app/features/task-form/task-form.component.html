@@ -1,4 +1,6 @@
-<div class="task-form-container">
+<div class="task-form-container"
+(click)="cerrarMenu()"
+>
   <h2>Nueva Tarea</h2>
 
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">

@@ -284,46 +284,49 @@
 .app-main {
   min-height: calc(100vh - 280px); /* Ajustado para mobile */
   padding: var(--spacing-md, 16px) 0;
+  padding-bottom: 80px; /* Espacio para el footer fijo */
 
   /* Tablet y mayores */
   @media (min-width: 768px) {
     min-height: calc(100vh - 240px);
     padding: var(--spacing-lg, 24px) 0;
+    padding-bottom: 100px; /* Espacio para el footer fijo */
   }
 
   /* Desktop */
   @media (min-width: 1024px) {
     min-height: calc(100vh - 200px);
     padding: var(--spacing-xl, 32px) 0;
+    padding-bottom: 100px; /* Espacio para el footer fijo */
   }
 }
 
 .app-footer {
   background: #333;
   color: white;
-  padding: var(--spacing-md, 16px) 0;
+  // padding: var(--spacing-md, 16px) 0;
   text-align: center;
-  margin-top: var(--spacing-lg, 24px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
 
   p {
     font-size: 0.875rem; /* 14px */
     opacity: 0.9;
     line-height: 1.5;
+    margin: 0;
   }
 
   /* Tablet y mayores */
   @media (min-width: 768px) {
     padding: var(--spacing-lg, 24px) 0;
-    margin-top: var(--spacing-xl, 32px);
 
     p {
       font-size: 0.9375rem; /* 15px */
     }
-  }
-
-  /* Desktop */
-  @media (min-width: 1024px) {
-    margin-top: 40px;
   }
 }
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { TaskService } from '../../core/services/task.service';
 import { CategoryService } from '../../core/services/category.service';
 import { Category, TaskPriority, CreateTaskDto } from '../../core/models';
+import { UiStateService } from '../../core/services/ui-state.service';
 
 /**
  * Componente de formulario para crear nuevas tareas.
@@ -50,6 +51,9 @@ export class TaskFormComponent {
 
   /** Señal que indica si el formulario se está enviando */
   submitting = signal(false);
+
+  /** Servicio de estado de UI inyectado */
+  uiState = inject(UiStateService);
 
   /**
    * Formulario reactivo para crear tareas.
@@ -168,5 +172,14 @@ export class TaskFormComponent {
   onCancel() {
     this.taskForm.reset({ priority: 'medium' });
     // TODO: Navigate back
+  }
+
+  /**
+   * Cierra el menú de navegación si está abierto.
+   *
+   * @returns {void}
+   */
+  cerrarMenu() {
+    this.uiState.closeMenu();
   }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../../core/services/category.service';
 import { Category, CreateCategoryDto } from '../../core/models';
+import { UiStateService } from '../../core/services/ui-state.service';
 
 /**
  * Componente para gestionar categorías de tareas.
@@ -49,6 +50,9 @@ export class CategoriesComponent implements OnInit {
 
   /** Señal que controla la visibilidad del formulario de creación */
   showForm = signal(false);
+
+  /** Servicio de estado de UI inyectado */
+  uiState = inject(UiStateService);
 
   /**
    * Formulario reactivo para crear/editar categorías.
@@ -202,5 +206,14 @@ export class CategoriesComponent implements OnInit {
         error: (error) => console.error('Error deleting category:', error)
       });
     }
+  }
+
+  /**
+   * Cierra el menú de navegación si está abierto.
+   *
+   * @returns {void}
+   */
+  cerrarMenu() {
+    this.uiState.closeMenu();
   }
 }

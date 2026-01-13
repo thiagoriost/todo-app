@@ -1,5 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet, Router} from '@angular/router';
+import { UiStateService } from './core/services/ui-state.service';
 
 /**
  * Componente raíz de la aplicación ToDoApp.
@@ -28,8 +29,8 @@ export class App {
   /** Router inyectado para navegación programática */
   private router = inject(Router);
 
-  /** Estado del menú de navegación (abierto/cerrado) */
-  protected menuOpen = signal(false);
+  /** Servicio de estado de UI centralizado */
+  protected uiState = inject(UiStateService);
 
   /**
    * Alterna la visibilidad del menú de navegación.
@@ -41,7 +42,7 @@ export class App {
    * ```
    */
   toggleMenu(): void {
-    this.menuOpen.update(value => !value);
+    this.uiState.toggleMenu();
   }
 
   /**
@@ -57,7 +58,7 @@ export class App {
    * ```
    */
   navigateToTasks(): Promise<boolean> {
-    this.menuOpen.set(false);
+    this.uiState.closeMenu();
     return this.router.navigate(['/tasks']);
   }
 
@@ -73,7 +74,7 @@ export class App {
    * ```
    */
   navigateToNewTask(): Promise<boolean> {
-    this.menuOpen.set(false);
+    this.uiState.closeMenu();
     return this.router.navigate(['/tasks/new']);
   }
 
@@ -90,7 +91,7 @@ export class App {
    * ```
    */
   navigateToCategories(): Promise<boolean> {
-    this.menuOpen.set(false);
+    this.uiState.closeMenu();
     return this.router.navigate(['/categories']);
   }
 
@@ -107,7 +108,7 @@ export class App {
    * ```
    */
   navigateToHistory(): Promise<boolean> {
-    this.menuOpen.set(false);
+    this.uiState.closeMenu();
     return this.router.navigate(['/history']);
   }
 
