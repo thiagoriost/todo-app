@@ -55,6 +55,16 @@ export class TaskHistoryComponent implements OnInit {
   /** Servicio de estado de UI inyectado */
     uiState = inject(UiStateService);
 
+  /** Opciones de filtro por acción */
+  protected actionFilterOptions = [
+    { value: '', label: 'Todas las acciones' },
+    { value: 'created', label: 'Creadas' },
+    { value: 'updated', label: 'Actualizadas' },
+    { value: 'status_changed', label: 'Cambio de Estado' },
+    { value: 'completed', label: 'Completadas' },
+    { value: 'deleted', label: 'Eliminadas' }
+  ];
+
   /**
    * Hook de ciclo de vida de Angular.
    * Carga el historial al inicializar el componente.

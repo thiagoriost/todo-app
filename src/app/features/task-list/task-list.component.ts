@@ -63,6 +63,9 @@ export class TaskListComponent implements OnInit {
   /** Servicio de estado de UI inyectado */
   uiState = inject(UiStateService);
 
+  /** Set con los IDs de las tareas expandidas */
+  private expandedTaskIds = signal<Set<string>>(new Set());
+
   /**
    * Hook de ciclo de vida de Angular.
    * Ejecuta la carga inicial de tareas y categorías.
@@ -275,5 +278,45 @@ export class TaskListComponent implements OnInit {
    */
   cerrarMenu() {
     this.uiState.closeMenu();
+  }
+
+  /**
+   * Alterna el estado expandido/colapsado de una tarjeta de tarea.
+   *
+   * @param {string} taskId - ID de la tarea a expandir/colapsar
+   * @returns {void}
+   *
+   * @example
+   * ```html
+   * <div (click)="toggleTaskExpanded(task.id)">
+   *   {{ task.title }}
+   * </div>
+   * ```
+   */
+  toggleTaskExpanded(taskId: string) {
+    const expanded = new Set(this.expandedTaskIds());
+    if (expanded.has(taskId)) {
+      expanded.delete(taskId);
+    } else {
+      expanded.add(taskId);
+    }
+    this.expandedTaskIds.set(expanded);
+  }
+
+  /**
+   * Verifica si una tarea está expandida.
+   *
+   * @param {string} taskId - ID de la tarea a verificar
+   * @returns {boolean} true si la tarea está expandida, false si está colapsada
+   *
+   * @example
+   * ```html
+   * <div [class.expanded]="isTaskExpanded(task.id)">
+   *   <!-- contenido -->
+   * </div>
+   * ```
+   */
+  isTaskExpanded(taskId: string): boolean {
+    return this.expandedTaskIds().has(taskId);
   }
 }

@@ -61,10 +61,16 @@
   border-radius: var(--border-radius, 8px);
   padding: var(--spacing-md, 16px);
   box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.1));
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &.expanded {
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.15));
+    border-color: #667eea;
   }
 
   @media (min-width: 768px) {
@@ -73,6 +79,10 @@
     &:hover {
       box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
       transform: translateY(-2px);
+    }
+
+    &.expanded:hover {
+      box-shadow: var(--shadow-lg, 0 6px 16px rgba(0,0,0,0.2));
     }
   }
 }
@@ -86,13 +96,31 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm, 12px);
-  margin-bottom: var(--spacing-sm, 12px);
+  margin-bottom: 0;
+  user-select: none;
+  position: relative;
+
+  &::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: #667eea;
+    transition: transform 0.3s ease;
+  }
+
+  .task-card.expanded &::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
 
   h3 {
     margin: 0;
     font-size: 1.125rem;
     line-height: 1.4;
     word-break: break-word;
+    padding-right: 24px;
   }
 
   @media (min-width: 480px) {
@@ -122,10 +150,11 @@
 .priority.urgent { background: #ffebee; color: #c62828; }
 
 .description {
-  margin: var(--spacing-sm, 12px) 0;
+  margin: var(--spacing-sm, 12px) 0 0 0;
   color: #666;
   line-height: 1.6;
   font-size: 0.95rem;
+  animation: slideDown 0.3s ease;
 }
 
 .task-meta {
@@ -134,6 +163,7 @@
   gap: var(--spacing-sm, 12px);
   margin: var(--spacing-sm, 12px) 0;
   font-size: 0.875rem;
+  animation: slideDown 0.3s ease;
 }
 
 .category {
@@ -155,6 +185,7 @@
   flex-direction: column;
   gap: var(--spacing-sm, 12px);
   margin-top: var(--spacing-md, 16px);
+  animation: slideDown 0.3s ease;
 
   @media (min-width: 480px) {
     flex-direction: row;
@@ -210,3 +241,16 @@
     padding: 40px;
   }
 }
+
+/* Animación para contenido desplegable */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
