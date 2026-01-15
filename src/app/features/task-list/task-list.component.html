@@ -27,36 +27,38 @@
       <div class="empty">No hay tareas disponibles</div>
     } @else {
       @for (task of filteredTasks(); track task.id) {
-        <div class="task-card" [class.completed]="task.status === 'completed'">
-          <div class="task-header">
+        <div class="task-card" [class.completed]="task.status === 'completed'" [class.expanded]="isTaskExpanded(task.id)">
+          <div class="task-header" (click)="toggleTaskExpanded(task.id)">
             <h3>{{ task.title }}</h3>
             <span class="priority" [class]="task.priority">{{ task.priority }}</span>
           </div>
 
-          @if (task.description) {
-            <p class="description">{{ task.description }}</p>
-          }
-
-          <div class="task-meta">
-            <span class="category">
-              {{ getCategoryName(task.categoryId) }}
-            </span>
-            <span class="status">{{ getStatusLabel(task.status) }}</span>
-          </div>
-
-          <div class="task-actions">
-            @if (task.status !== 'completed') {
-              <button (click)="completeTask(task.id)" class="btn-complete">
-                Completar
-              </button>
+          @if (isTaskExpanded(task.id)) {
+            @if (task.description) {
+              <p class="description">{{ task.description }}</p>
             }
-            <button (click)="editTask(task.id)" class="btn-edit">
-              Editar
-            </button>
-            <button (click)="deleteTask(task.id)" class="btn-delete">
-              Eliminar
-            </button>
-          </div>
+
+            <div class="task-meta">
+              <span class="category">
+                {{ getCategoryName(task.categoryId) }}
+              </span>
+              <span class="status">{{ getStatusLabel(task.status) }}</span>
+            </div>
+
+            <div class="task-actions">
+              @if (task.status !== 'completed') {
+                <button (click)="completeTask(task.id); $event.stopPropagation()" class="btn-complete">
+                  Completar
+                </button>
+              }
+              <button (click)="editTask(task.id); $event.stopPropagation()" class="btn-edit">
+                Editar
+              </button>
+              <button (click)="deleteTask(task.id); $event.stopPropagation()" class="btn-delete">
+                Eliminar
+              </button>
+            </div>
+          }
         </div>
       }
     }

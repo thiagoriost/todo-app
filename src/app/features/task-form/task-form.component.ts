@@ -5,6 +5,7 @@ import { TaskService } from '../../core/services/task.service';
 import { CategoryService } from '../../core/services/category.service';
 import { Category, TaskPriority, CreateTaskDto } from '../../core/models';
 import { UiStateService } from '../../core/services/ui-state.service';
+import { Router } from '@angular/router';
 
 /**
  * Componente de formulario para crear nuevas tareas.
@@ -77,6 +78,9 @@ export class TaskFormComponent {
     tagsInput: ['']
   });
 
+  /** Router inyectado para navegación programática */
+  private router = inject(Router);
+
   /**
    * Constructor del componente.
    * Inicializa la carga de categorías.
@@ -147,6 +151,8 @@ export class TaskFormComponent {
           this.taskForm.reset({ priority: 'medium' });
           this.submitting.set(false);
           // TODO: Navigate to task list or show success message
+          // navegar a la lista de tareas
+          this.router.navigate(['/tasks']);
         },
         error: (error) => {
           console.error('Error creating task:', error);

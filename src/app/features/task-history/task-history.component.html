@@ -5,12 +5,9 @@
 
   <div class="filters">
     <select class="filter-select" (change)="filterByAction($event)">
-      <option value="">Todas las acciones</option>
-      <option value="created">Creadas</option>
-      <option value="updated">Actualizadas</option>
-      <option value="status_changed">Cambio de Estado</option>
-      <option value="completed">Completadas</option>
-      <option value="deleted">Eliminadas</option>
+      @for (option of actionFilterOptions; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
     </select>
 
     <input
@@ -38,7 +35,7 @@
               <span class="timestamp">{{ formatDate(entry.timestamp) }}</span>
             </div>
             <div class="timeline-body">
-              <p><strong>Tarea:</strong> {{ entry.taskTitle }}</p>
+              <p><strong>Tarea:</strong> {{ entry.oldValues.title }}</p>
 
               @if (entry.oldStatus && entry.newStatus) {
                 <div class="status-change">
