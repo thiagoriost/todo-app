@@ -39,10 +39,12 @@
 .filter-select {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   font-size: 16px;
-  background: white;
+  background: var(--bg-card);
+  color: var(--text-color);
+  transition: all 0.3s ease;
 
   @media (min-width: 480px) {
     width: auto;
@@ -56,13 +58,14 @@
 }
 
 .task-card {
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   padding: var(--spacing-md, 16px);
-  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
   cursor: pointer;
+  color: var(--text-color);
 
   &:active {
     transform: scale(0.98);
@@ -89,7 +92,7 @@
 
 .task-card.completed {
   opacity: 0.7;
-  background: #f9f9f9;
+  background: var(--bg-color);
 }
 
 .task-header {
@@ -151,7 +154,7 @@
 
 .description {
   margin: var(--spacing-sm, 12px) 0 0 0;
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   font-size: 0.95rem;
   animation: slideDown 0.3s ease;
@@ -167,14 +170,16 @@
 }
 
 .category {
-  background: #e8f5e9;
+  background: var(--success-bg);
+  color: var(--success-color);
   padding: 6px 12px;
   border-radius: var(--border-radius, 8px);
   font-weight: 500;
 }
 
 .status {
-  background: #f5f5f5;
+  background: var(--bg-color);
+  color: var(--text-color);
   padding: 6px 12px;
   border-radius: var(--border-radius, 8px);
   font-weight: 500;
@@ -234,7 +239,7 @@
 .loading, .empty {
   text-align: center;
   padding: var(--spacing-xl, 32px);
-  color: #666;
+  color: var(--text-secondary);
   font-size: 1rem;
 
   @media (min-width: 768px) {

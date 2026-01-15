@@ -66,11 +66,12 @@
 }
 
 .category-form {
-  background: white;
+  background: var(--bg-card);
   padding: var(--spacing-md, 16px);
   border-radius: var(--border-radius, 8px);
   margin-bottom: var(--spacing-lg, 24px);
-  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-sm);
+  color: var(--text-color);
 
   @media (min-width: 768px) {
     padding: var(--spacing-lg, 24px);
@@ -98,10 +99,12 @@
 input {
   width: 100%;
   padding: 14px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   font-size: 16px;
   transition: all 0.2s ease;
+  background: var(--bg-secondary);
+  color: var(--text-color);
 
   &:focus {
     outline: none;
@@ -175,12 +178,13 @@ input[type="color"] {
 }
 
 .category-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: var(--border-radius, 8px);
   padding: var(--spacing-md, 16px);
   border-left: 4px solid;
-  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
+  color: var(--text-color);
 
   &:active {
     transform: scale(0.98);
@@ -222,7 +226,7 @@ input[type="color"] {
 }
 
 .description {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   margin: var(--spacing-sm, 12px) 0;
   line-height: 1.6;
@@ -238,11 +242,11 @@ input[type="color"] {
   align-items: center;
   margin-top: var(--spacing-md, 16px);
   padding-top: var(--spacing-md, 16px);
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color);
 }
 
 .task-count {
-  color: #999;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -284,7 +288,7 @@ input[type="color"] {
   grid-column: 1 / -1;
   text-align: center;
   padding: var(--spacing-xl, 32px);
-  color: #666;
+  color: var(--text-secondary);
   font-size: 1rem;
 
   @media (min-width: 768px) {

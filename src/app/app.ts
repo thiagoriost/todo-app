@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, Router} from '@angular/router';
 import { UiStateService } from './core/services/ui-state.service';
+import { ThemeService } from './core/services/theme.service';
 
 /**
  * Componente raíz de la aplicación ToDoApp.
@@ -15,6 +16,7 @@ import { UiStateService } from './core/services/ui-state.service';
  * - Detección de ruta activa
  * - Diseño responsive mobile-first
  * - Menú hamburguesa colapsable para móviles
+ * - Gestión de tema claro/oscuro
  */
 @Component({
   selector: 'app-root',
@@ -31,6 +33,9 @@ export class App {
 
   /** Servicio de estado de UI centralizado */
   protected uiState = inject(UiStateService);
+
+  /** Servicio de tema para modo claro/oscuro */
+  protected themeService = inject(ThemeService);
 
   /**
    * Alterna la visibilidad del menú de navegación.

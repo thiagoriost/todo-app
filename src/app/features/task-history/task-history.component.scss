@@ -34,10 +34,11 @@ h2 {
 .filter-select, .date-filter {
   width: 100%;
   padding: 14px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   font-size: 16px;
-  background: white;
+  background: var(--bg-card);
+  color: var(--text-color);
   transition: all 0.2s ease;
 
   &:focus {
@@ -73,7 +74,7 @@ h2 {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #e0e0e0;
+  background: var(--border-color);
 
   @media (min-width: 768px) {
     left: 8px;
@@ -96,9 +97,9 @@ h2 {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--primary-color, #2196f3);
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px #e0e0e0;
+  background: var(--primary-color);
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 0 0 2px var(--border-color);
 
   @media (min-width: 768px) {
     left: -26px;
@@ -117,12 +118,13 @@ h2 {
 }
 
 .timeline-content {
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   padding: var(--spacing-md, 16px);
-  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
+  color: var(--text-color);
 
   &:active {
     transform: scale(0.99);
@@ -162,23 +164,23 @@ h2 {
 }
 
 .action-badge.created {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: var(--info-bg);
+  color: var(--info-color);
 }
 
 .action-badge.updated {
-  background: #fff3e0;
-  color: #f57c00;
+  background: var(--warning-bg);
+  color: var(--warning-color);
 }
 
 .action-badge.completed {
-  background: #e8f5e9;
-  color: #4caf50;
+  background: var(--success-bg);
+  color: var(--success-color);
 }
 
 .action-badge.deleted {
-  background: #ffebee;
-  color: #f44336;
+  background: var(--danger-bg);
+  color: var(--danger-color);
 }
 
 .action-badge.status_changed {
@@ -187,7 +189,7 @@ h2 {
 }
 
 .timestamp {
-  color: #999;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
 
@@ -198,7 +200,7 @@ h2 {
 
 .timeline-body p {
   margin: 0 0 var(--spacing-sm, 12px) 0;
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   font-size: 0.95rem;
 }
@@ -209,7 +211,7 @@ h2 {
   gap: var(--spacing-sm, 12px);
   margin: var(--spacing-sm, 12px) 0;
   padding: var(--spacing-md, 16px);
-  background: #f9f9f9;
+  background: var(--bg-color);
   border-radius: var(--border-radius, 8px);
 
   @media (min-width: 480px) {
@@ -227,17 +229,17 @@ h2 {
 }
 
 .old-status {
-  background: #ffebee;
-  color: #c62828;
+  background: var(--danger-bg);
+  color: var(--danger-color);
 }
 
 .new-status {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: var(--success-bg);
+  color: var(--success-color);
 }
 
 .arrow {
-  color: #999;
+  color: var(--text-secondary);
   font-size: 1.25rem;
   text-align: center;
 
@@ -249,7 +251,7 @@ h2 {
 .changes {
   margin-top: var(--spacing-md, 16px);
   padding-top: var(--spacing-md, 16px);
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 
   h4 {
     font-size: 0.95rem;
@@ -263,7 +265,7 @@ h2 {
 }
 
 .changes li {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   margin: 6px 0;
   line-height: 1.6;
@@ -276,7 +278,7 @@ h2 {
 .loading, .empty {
   text-align: center;
   padding: var(--spacing-xl, 32px);
-  color: #666;
+  color: var(--text-secondary);
   font-size: 1rem;
 
   @media (min-width: 768px) {
