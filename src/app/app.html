@@ -2,18 +2,30 @@
   <div class="container">
     <div class="header-content">
       <h1>📝 ToDoApp</h1>
-      <button
-        class="menu-toggle"
-        (click)="toggleMenu()"
-        [attr.aria-expanded]="uiState.menuOpen()"
-        aria-label="Toggle menu"
-        type="button">
-        <span class="hamburger" [class.open]="uiState.menuOpen()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          (click)="themeService.toggleTheme()"
+          [attr.aria-label]="themeService.isDarkMode() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+          type="button"
+          title="{{ themeService.isDarkMode() ? 'Modo Claro' : 'Modo Oscuro' }}">
+          <span class="theme-icon">
+            {{ themeService.isDarkMode() ? '☀️' : '🌙' }}
+          </span>
+        </button>
+        <button
+          class="menu-toggle"
+          (click)="toggleMenu()"
+          [attr.aria-expanded]="uiState.menuOpen()"
+          aria-label="Toggle menu"
+          type="button">
+          <span class="hamburger" [class.open]="uiState.menuOpen()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
     </div>
 
     <!-- Overlay para cerrar menú al hacer click fuera -->

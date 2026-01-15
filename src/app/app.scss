@@ -18,11 +18,51 @@
     margin-bottom: 0;
   }
 
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
   h1 {
     font-size: 1.25rem; /* 20px - compacto para móvil */
     margin: 0;
     font-weight: 700;
     letter-spacing: -0.5px;
+  }
+
+  /* Botón de tema */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .theme-icon {
+      font-size: 1.5rem;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: transform 0.3s ease;
+    }
+
+    &:hover .theme-icon {
+      transform: rotate(20deg);
+    }
   }
 
   /* Botón hamburguesa - Solo móvil */
@@ -302,8 +342,9 @@
 }
 
 .app-footer {
-  background: #333;
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-color);
+  border-top: 1px solid var(--border-color);
   // padding: var(--spacing-md, 16px) 0;
   text-align: center;
   position: fixed;
@@ -312,6 +353,7 @@
   right: 0;
   z-index: 100;
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 
   p {
     font-size: 0.875rem; /* 14px */

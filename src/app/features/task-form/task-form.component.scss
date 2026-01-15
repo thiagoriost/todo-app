@@ -2,9 +2,10 @@
 .task-form-container {
   width: 100%;
   padding: var(--spacing-md, 16px);
-  background: white;
+  background: var(--bg-card);
   border-radius: 0;
   box-shadow: none;
+  color: var(--text-color);
 
   @media (min-width: 768px) {
     max-width: 600px;
@@ -22,7 +23,7 @@
 
 h2 {
   margin-bottom: var(--spacing-lg, 24px);
-  color: #333;
+  color: var(--text-color);
   font-size: 1.5rem;
   text-align: center;
 
@@ -50,19 +51,20 @@ label {
   display: block;
   margin-bottom: var(--spacing-sm, 12px);
   font-weight: 600;
-  color: #333;
+  color: var(--text-color);
   font-size: 0.95rem;
 }
 
 input, select, textarea {
   width: 100%;
   padding: 14px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius, 8px);
   font-size: 16px;
   transition: all 0.2s ease;
   font-family: inherit;
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-color);
 
   &:focus {
     outline: none;
